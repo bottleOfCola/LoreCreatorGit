@@ -1,0 +1,25 @@
+﻿@{
+    Layout = "_LayoutLoreCreator";
+}
+
+<div>
+    <div class="tag">
+        <form method="post" asp-controller="LoreCreator" asp-action="AddTag">
+            <div>
+                <input type="text" placeholder="name" name="name" />
+            </div>
+            <div>
+                <textarea placeholder="description" name="description"></textarea>
+            </div>
+            <input type="submit" value="Добавить Тэг" />
+        </form>
+    </div>
+    <div class="connectionType">
+        <form method="post" asp-controller="LoreCreator" asp-action="AddConnectionType">
+            <div>
+                <input type="text" placeholder="name" name="name" />
+            </div>
+            <input type="submit" value="Добавить Тип связи" />
+        </form>
+    </div>
+</div>

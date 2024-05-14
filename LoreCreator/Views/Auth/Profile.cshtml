@@ -1,0 +1,27 @@
+﻿@using LoreCreator.ViewModels
+
+@model ProfileViewModel
+
+@{
+    Layout = "_LayoutLoreCreator";
+}
+
+<div>
+    <div>
+        Name
+        <h2>@Model.Name</h2>
+    </div>
+    <div>
+        Email
+        <h3>@Model.Email</h3>
+    </div>
+    <div>
+        Roles:
+        @foreach(var role in Model.Roles)
+        {
+            <div>
+                <a asp-controller="Auth" asp-action="GetRole" asp-route-id="@role.Id">@role.Name</a>
+            </div>
+        }
+    </div>
+</div>

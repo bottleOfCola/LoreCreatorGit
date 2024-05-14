@@ -1,0 +1,83 @@
+﻿@using LoreCreator.DbStuff.Models
+@using SharedForLoreCreator.Models
+
+@model Connection
+
+@{
+    Layout = "_LayoutLoreCreator";
+}
+@{
+    List<PermissionTypes> permissions = new();
+}
+@if (User.Identity.IsAuthenticated)
+{
+    permissions = User.Claims.FirstOrDefault(x => x.Type == "permissions").Value.Split(' ').ToList().ConvertAll(x => (PermissionTypes)int.Parse(x));
+    @section Script
+    {
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="~/js/lib/cookies/cookie.min.js"></script>
+    <script src="~/js/chat.js"></script>
+    }
+    @section Style
+    {
+    <style>
+        .template {
+            display: none;
+        }
+
+        .error {
+            background-color: indianred;
+        }
+
+        .apply {
+            background-color: lightgreen;
+        }
+    </style>
+    }
+    string chatName = "connection" + Model.Id;
+    <input type="hidden" class="chat-name" value="@chatName" />
+    <div class="chat">
+        <div class="messages">
+            <div class="message template">
+                @if (permissions.Contains(PermissionTypes.RemoveMessage))
+                {
+                    <button class="delete-message-button" value="">DELETE</button>
+                }
+                <span class="message-time"></span>
+                <span class="message-user-name"></span>
+                <span class="message-text"></span>
+            </div>
+            <div class="event template">
+                <span class="event-text"></span>
+            </div>
+        </div>
+        <div>
+            <input class="new-message-text" type="text" />
+            <button class="send-message-button">Send</button>
+        </div>
+    </div>
+    if (permissions.Contains(PermissionTypes.RemoveConnection))
+    {
+        <input type="button" value="DELETE"
+               onclick="location.href='@Url.Action("DeleteConnection", "LoreCreator", new {connectionId = Model.Id})'" />
+    }
+}
+
+<div class="connection">
+    <div class="connectionType">
+        @Model.ConnectionType.Name
+    </div>
+    <div class="description">
+        @Model.Description
+    </div>
+    <div class="elements">
+        Элементы:
+        @foreach(var e in Model.Elements)
+        {
+            <div class="element">
+                <a asp-controller="LoreCreator" asp-action="GetElement" asp-route-id="@e.Id">@e.Name</a>
+            </div>
+        }
+    </div>
+</div>

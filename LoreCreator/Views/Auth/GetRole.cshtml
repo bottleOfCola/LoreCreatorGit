@@ -1,0 +1,24 @@
+﻿@using LoreCreator.Services
+@using SharedForLoreCreator.Models
+
+@model SharedRole
+
+@{
+    Layout = "_LayoutLoreCreator";
+}
+
+<div>
+    <div>
+        Name
+        <h2>@Model.Name</h2>
+    </div>
+    <div>
+        Roles:
+        @foreach (var permission in Model.Permissions)
+        {
+            <div>
+                <h3>@Supporter.GetNameOfPermission(permission.Id)</h3>
+            </div>
+        }
+    </div>
+</div>

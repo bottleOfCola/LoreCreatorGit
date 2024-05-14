@@ -1,0 +1,34 @@
+﻿@using LoreCreator.ViewModels
+
+@model AddConnectionViewModel
+
+@{
+    Layout = "_LayoutLoreCreator";
+}
+
+<div>
+    <form method="post">
+
+        <div>
+            Тип связи
+            @Html.DropDownListFor(x => x.ConnectionTypeId, new MultiSelectList(Model.AllConnectionTypes, "Id", "Name"))
+            @Html.ValidationMessageFor(x => x.ConnectionTypeId)
+        </div>
+
+        <div>
+            Элементы
+            @Html.ListBoxFor(x => x.ElementsIds, new MultiSelectList(Model.AllElements, "Id", "Name"))
+            @Html.ValidationMessageFor(x => x.ElementsIds)
+        </div>
+
+        <div>
+            Описание
+            @Html.TextAreaFor(x => x.Description, new { placeholder = "Описание" })
+            @Html.ValidationMessageFor(x => x.Description)
+        </div>
+
+        <div>
+            <input type="submit" value="Создать Связь" />
+        </div>
+    </form>
+</div>

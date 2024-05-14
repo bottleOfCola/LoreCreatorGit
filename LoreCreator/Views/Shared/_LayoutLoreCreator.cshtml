@@ -1,0 +1,47 @@
+﻿@using LoreCreator.LocalizationFiles
+@using SharedForLoreCreator.Models
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    @RenderSection("Style", false)
+    @RenderSection("Script", false)
+    @if (User.Identity.IsAuthenticated)
+    {
+        @RenderSection("AuthScript", false);
+    }
+</head>
+<body>
+    <header>LoreCreator MEAW!!!</header>
+    <div>
+        @if(User.Identity.IsAuthenticated)
+        {
+            var permissions = User.Claims.FirstOrDefault(x => x.Type == "permissions").Value.Split(' ').ToList().ConvertAll(x => (PermissionTypes)int.Parse(x));
+            if(permissions is not null)
+            {
+                if (permissions.Contains(PermissionTypes.AddConnection))
+                {
+                    <a asp-controller="LoreCreator" asp-action="AddConnection">@LCL.AddConnection</a>
+                }
+                if (permissions.Contains(PermissionTypes.AddElement))
+                {
+                    <a asp-controller="LoreCreator" asp-action="AddElement">@LCL.AddElement</a>
+                }
+                if (permissions.Contains(PermissionTypes.AddTag) && permissions.Contains(PermissionTypes.AddConnectionType))
+                {
+                    <a asp-controller="LoreCreator" asp-action="AddTagOrConnectionType">@LCL.AddTagOrConnType</a>
+                }
+            }
+            <a asp-controller="Auth" asp-action="Profile">@LCL.Profile</a>
+        }
+        else
+        {
+            <a asp-controller="Auth" asp-action="Registration">@LCL.Registration</a>
+            <a asp-controller="Auth" asp-action="Login">@LCL.Login</a>
+        }
+    </div>
+    @RenderBody()
+    <div>
+        БОЛЬШЕ МЯЯЯУУУ
+    </div>
+</body>
+</html>

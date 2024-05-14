@@ -1,0 +1,48 @@
+﻿@using LoreCreator.ViewModels
+
+@model AddElementViewModel
+
+@{
+    Layout = "_LayoutLoreCreator";
+}
+
+<div>
+    <form method="post" >
+        <div>
+            Имя
+            @Html.TextBoxFor(x => x.Name, new { placeholder = "Имя" })
+            @Html.ValidationMessageFor(x => x.Name)
+        </div>
+
+        <div>
+            Картинка
+            @Html.TextBoxFor(x => x.Image)
+            @Html.ValidationMessageFor(x => x.Image)
+        </div>
+
+        <div>
+            @if(ViewBag.Tags is null)
+            {
+                <h1>Тэгов нет!</h1>
+            }
+            else
+            {
+                <div>
+                    Тэги
+                    @Html.ListBoxFor(x => x.Tags, new MultiSelectList(ViewBag.Tags, "Id", "Name"))
+                    @Html.ValidationMessageFor(x => x.Tags)
+                </div>
+            }
+        </div>
+
+        <div>
+            Описание
+            @Html.TextAreaFor(x=> x.Description, new { placeholder = "Описание"})
+            @Html.ValidationMessageFor(x => x.Description)
+        </div>
+
+        <div>
+            <input type="submit" value="Создать Элемент" />
+        </div>
+    </form>
+</div>

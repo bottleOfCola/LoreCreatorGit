@@ -1,0 +1,26 @@
+﻿@using LoreCreator.ViewModels
+
+@model RegisterViewModel
+
+<div>
+    <form method="post">
+        <div>
+            Name
+            @Html.TextBoxFor(x => x.Name)
+            @Html.ValidationMessageFor(x => x.Name)
+        </div>
+        <div>
+            Email
+            @Html.TextBoxFor(x => x.Email)
+            @Html.ValidationMessageFor(x => x.Email)
+        </div>
+        <div>
+            Password
+            @Html.TextBoxFor(x => x.Password, new { @type = "password" })
+            @Html.ValidationMessageFor(x => x.Password)
+        </div>
+        <div>
+            <input type="submit" value="Registration" />
+        </div>
+    </form>
+</div>

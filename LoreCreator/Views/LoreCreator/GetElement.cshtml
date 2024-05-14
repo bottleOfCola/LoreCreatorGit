@@ -1,0 +1,113 @@
+﻿@using LoreCreator.Services
+@using LoreCreator.ViewModels
+@using SharedForLoreCreator.Models
+
+@model GetElementViewModel
+
+@{
+    Layout = "_LayoutLoreCreator";
+}
+@{
+    List<PermissionTypes>? permissions = new();
+}
+@if (User.Identity.IsAuthenticated)
+{
+    permissions = Supporter.GetPermissionsFromString(User.Claims);
+    @section Script
+    {
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="~/js/lib/cookies/cookie.min.js"></script>
+    <script src="~/js/chat.js"></script>
+    }
+    @section Style
+    {
+        <style>
+            .template
+            {
+                display: none;
+            }
+            .error
+            {
+                background-color: indianred;
+            }
+            .apply
+            {
+                background-color: lightgreen;
+            }
+        </style>
+    }
+    string chatName = "element" + Model.Id;
+    <input type="hidden" class="chat-name" value="@chatName" />
+    <div class="chat">
+        <div class="messages">
+            <div class="message template">
+                @if(permissions.Contains(PermissionTypes.RemoveMessage))
+                {
+                    <button class="delete-message-button" value="">DELETE</button>
+                }
+                <span class="message-time"></span>
+                <span class="message-user-name"></span>
+                <span class="message-text"></span>
+            </div>
+            <div class="event template">
+                <span class="event-text"></span>
+            </div>
+        </div>
+        <div>
+            <input class="new-message-text" type="text" />
+            <button class="send-message-button">Send</button>
+        </div>
+    </div>
+    if(permissions.Contains(PermissionTypes.RemoveElement))
+    {
+        <input type="button" value="DELETE"
+               onclick="location.href='@Url.Action("DeleteElement", "LoreCreator", new {elementId = Model.Id})'" />
+    }
+}
+
+<div class="element">
+    <img href="lol" />
+    <div class="name">
+        @Model.Name
+    </div>
+    <div class="description">
+        @Model.Description
+    </div>
+    <div class="tags">
+        Тэги:
+        @if( Model.Tags is null || Model.Tags.Count == 0)
+        {
+            <h1>No Tags</h1>
+        }
+        else
+        {
+            @foreach (var t in Model.Tags)
+            {
+                <div class="tag">
+                    @if (permissions.Contains(PermissionTypes.RemoveElement))
+                    {
+                        <button onclick="$().get('/LoreCreator/RemoveTagFromElement', {elementId: @Model.Id, tagId: @t.Id})">DELETE</button>
+                    }
+                    <a asp-controller="LoreCreator" asp-action="GetTag" asp-route-id="@t.Id">@t.Name</a>
+                </div>
+            }
+        }
+    </div>
+    <div class="connections">
+        Связи:
+        @if(Model.Connections is null || Model.Connections.Count == 0)
+        {
+            <h1>No Conns</h1>
+        }
+        else
+        {
+            @foreach (var c in Model.Connections)
+            {
+                <div class="connection">
+                    <a asp-controller="LoreCreator" asp-action="GetConnection" asp-route-id="@c.Id">@c.ConnectionType.Name</a>
+                </div>
+            }
+        }
+    </div>
+</div>

@@ -1,0 +1,21 @@
+﻿@using LoreCreator.ViewModels
+
+@model LoginViewModel
+
+<div>
+    <form method="post">
+        <div>
+            Email
+            @Html.TextBoxFor(x => x.Email)
+            @Html.ValidationMessageFor(x => x.Email)
+        </div>
+        <div>
+            Password
+            @Html.TextBoxFor(x => x.Password, new { @type = "password" })
+            @Html.ValidationMessageFor(x => x.Password)
+        </div>
+        <div>
+            <input type="submit" value="Login" />
+        </div>
+    </form>
+</div>
