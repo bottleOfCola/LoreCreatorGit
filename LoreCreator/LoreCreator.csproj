@@ -29,6 +29,21 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>LCL.resx</DependentUpon>
     </Compile>
+    <Compile Update="LocalizationFiles\LCLPermissionTypes.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LCLPermissionTypes.resx</DependentUpon>
+    </Compile>
+    <Compile Update="LocalizationFiles\LCLProfile.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LCLProfile.resx</DependentUpon>
+    </Compile>
+    <Compile Update="LocalizationFiles\LCLRole.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LCLRole.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -37,6 +52,27 @@
       <LastGenOutput>LCL.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="LocalizationFiles\LCL.ru.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="LocalizationFiles\LCLPermissionTypes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LCLPermissionTypes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="LocalizationFiles\LCLPermissionTypes.ru.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="LocalizationFiles\LCLProfile.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LCLProfile.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="LocalizationFiles\LCLProfile.ru.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="LocalizationFiles\LCLRole.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LCLRole.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="LocalizationFiles\LCLRole.ru.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
   </ItemGroup>
