@@ -17,6 +17,37 @@ public static class SeedExtentoin
             SeedPermissions(serviceScope.ServiceProvider);
             SeedRoles(serviceScope.ServiceProvider);
             SeedUsers(serviceScope.ServiceProvider);
+            SeedModels(serviceScope.ServiceProvider);
+        }
+    }
+
+    private static void SeedModels(IServiceProvider serviceProvider)
+    {
+        var aRepository = serviceProvider.GetService<ModelARepository>();
+        var bRepository = serviceProvider.GetService<ModelBRepository>();
+
+        int aId = 0;
+        int bId = 0;
+        if (!aRepository.Any())
+        {
+            aId = aRepository.Add(new()
+            {
+                Name = "Lalka"
+            });
+        }
+        if (!bRepository.Any())
+        {
+            bId = bRepository.Add(new()
+            {
+                Name = "Balka"
+            });
+        }
+        ModelAForOneToOne? a = aRepository.GetById(aId);
+        ModelBForOneToOne? b = bRepository.GetById(aId);
+        if(a is not null && b is not null)
+        {
+            aRepository.AddBModel(aId, b);
+            bRepository.AddAModel(bId, a);
         }
     }
 
