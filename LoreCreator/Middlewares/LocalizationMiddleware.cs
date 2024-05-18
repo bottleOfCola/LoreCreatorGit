@@ -13,8 +13,12 @@ public class LocalizationMiddleware
 
     public async Task InvokeAsync(HttpContext context)
     {
-        string acceptLanguage = context.Request.Headers.AcceptLanguage;
-        var locale = acceptLanguage.Split(';').First().Split(',').First();
+        string locale = context.Request.Cookies.FirstOrDefault(x => x.Key == "loreCreatorLanguage").Value;
+        if(string.IsNullOrEmpty(locale))
+        {
+            string acceptLanguage = context.Request.Headers.AcceptLanguage;
+            locale = acceptLanguage.Split(';').First().Split(',').First();
+        }
 
         var culture = new System.Globalization.CultureInfo(locale);
         Thread.CurrentThread.CurrentCulture = culture;

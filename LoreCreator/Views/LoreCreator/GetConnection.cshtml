@@ -14,7 +14,6 @@
     permissions = User.Claims.FirstOrDefault(x => x.Type == "permissions").Value.Split(' ').ToList().ConvertAll(x => (PermissionTypes)int.Parse(x));
     @section Script
     {
-    <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
     <script src="~/js/lib/cookies/cookie.min.js"></script>
     <script src="~/js/chat.js"></script>

@@ -76,6 +76,24 @@ public class LoreCreatorController : Controller
         return RedirectToAction("GetElement", new { id });
     }
 
+    [PermissionCheck(PermissionTypes.AddElement)]
+    [Authorize]
+    [HttpPost]
+    public IActionResult UpdateElementName(int id, string name)
+    {
+        _elementRepository.UpdateName(id, name);
+        return RedirectToAction("GetElement", new { id });
+    }
+
+    [PermissionCheck(PermissionTypes.AddElement)]
+    [Authorize]
+    [HttpPost]
+    public IActionResult UpdateElementDescription(int id, string description)
+    {
+        _elementRepository.UpdateDescription(id, description);
+        return RedirectToAction("GetElement", new { id });
+    }
+
     [NonAction]
     public void UpdateElementImageDeep(int id, IFormFile avatar)
     {
@@ -135,22 +153,24 @@ public class LoreCreatorController : Controller
     }
     [PermissionCheck(PermissionTypes.RemoveElement)]
     [Authorize]
-    public void RemoveTagFromElement(int elementId, int tagId)
+    public IActionResult RemoveTagFromElement(int elementId, int tagId)
     {
+        int id = elementId;
         if(!_elementRepository.isExist(elementId))
         {
-            return;
+            return RedirectToAction("GetElement", new { id });
         }
         if(!_tagRepository.isExist(tagId))
         {
-            return;
+            return RedirectToAction("GetElement", new { id });
         }
         Tag tag = _tagRepository.GetById(tagId);
         if(!_elementRepository.GetById(elementId).Tags.Contains(tag))
         {
-            return;
+            return RedirectToAction("GetElement", new { id });
         }
         _elementRepository.RemoveTag(elementId, tag);
+        return RedirectToAction("GetElement", new { id });
     }
 
     [PermissionCheck(PermissionTypes.AddElement)]

@@ -15,7 +15,6 @@
     permissions = Supporter.GetPermissionsFromString(User.Claims);
     @section Script
     {
-    <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
     <script src="~/js/lib/cookies/cookie.min.js"></script>
     <script src="~/js/chat.js"></script>
@@ -69,10 +68,20 @@
 <div class="element">
     <img href="lol" />
     <div class="name">
-        @Model.Name
+        <form method="post" asp-controller="LoreCreator" asp-action="UpdateElementName">
+            <input name="id" value="@Model.Id" type="hidden" />
+            <input id="elementNameSubmit" type="submit" style="display: none;" />
+            <input name="name" id="elementNameText" type="text" value="@Model.Name" disabled />
+        </form>
+        <input id="elementNameChanger" type="button" />
     </div>
     <div class="description">
-        @Model.Description
+        <form method="post" asp-controller="LoreCreator" asp-action="UpdateElementDescription">
+            <input name="id" value="@Model.Id" type="hidden" />
+            <input id="elementDescriptionSubmit" type="submit" style="display: none;" />
+            <textarea name="description" id="elementDescriptionText" disabled>@Model.Description</textarea>
+        </form>
+        <input id="elementDescriptionChanger" type="button" />
     </div>
     <div class="tags">
         Тэги:
@@ -87,7 +96,8 @@
                 <div class="tag">
                     @if (permissions.Contains(PermissionTypes.RemoveElement))
                     {
-                        <button onclick="$().get('/LoreCreator/RemoveTagFromElement', {elementId: @Model.Id, tagId: @t.Id})">DELETE</button>
+                        <input type="button" value="REMOVE"
+                               onclick="location.href='@Url.Action("RemoveTagFromElement", "LoreCreator", new {elementId = Model.Id, tagId = t.Id})'" />
                     }
                     <a asp-controller="LoreCreator" asp-action="GetTag" asp-route-id="@t.Id">@t.Name</a>
                 </div>

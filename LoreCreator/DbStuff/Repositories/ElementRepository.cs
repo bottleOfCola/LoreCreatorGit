@@ -32,6 +32,16 @@ public class ElementRepository : BaseDbRepository<Element, LoreCreatorDbContext>
         GetById(id).Image = avatarUrl;
         _context.SaveChanges();
     }
+    internal void UpdateName(int id, string name)
+    {
+        GetById(id).Name = name;
+        _context.SaveChanges();
+    }
+    internal void UpdateDescription(int id, string description)
+    {
+        GetById(id).Description = description;
+        _context.SaveChanges();
+    }
 
     internal void AddTag(int id, Tag tag)
     {

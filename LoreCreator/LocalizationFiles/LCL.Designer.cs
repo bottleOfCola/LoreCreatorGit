@@ -115,6 +115,15 @@ namespace LoreCreator.LocalizationFiles {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на MORE MEEOOOW.
+        /// </summary>
+        public static string Meow {
+            get {
+                return ResourceManager.GetString("Meow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Profile.
         /// </summary>
         public static string Profile {

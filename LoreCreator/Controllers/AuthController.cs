@@ -1,4 +1,5 @@
 ﻿using LoreCreator.DbStuff.Repositories;
+using LoreCreator.Services;
 using LoreCreator.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -17,6 +18,14 @@ public class AuthController : Controller
     public AuthController(UserRepository userRepository)
     {
         _userRepository = userRepository;
+    }
+
+    [HttpPost]
+    public IActionResult SetLang(int language)
+    {
+        Supporter.SetCurrentUserLanguage(Supporter.Languages[language]);
+        Response.Cookies.Append("loreCreatorLanguage", Supporter.Languages[language]);
+        return RedirectToAction("Index", "LoreCreator");
     }
 
     [Authorize]

@@ -58,4 +58,5 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=LoreCreator}/{action=Index}");
 
+Supporter.Start();
 app.Run();

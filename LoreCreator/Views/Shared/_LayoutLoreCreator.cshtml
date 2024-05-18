@@ -1,9 +1,13 @@
 ﻿@using LoreCreator.LocalizationFiles
+@using LoreCreator.Services
 @using SharedForLoreCreator.Models
 <!DOCTYPE html>
 <html lang="en">
 <head>
     @RenderSection("Style", false)
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="/js/langSelector.js"></script>
+    <script src="/js/elementEditor.js"></script>
     @RenderSection("Script", false)
     @if (User.Identity.IsAuthenticated)
     {
@@ -11,7 +15,9 @@
     }
 </head>
 <body>
-    <header>LoreCreator MEAW!!!</header>
+    <header>
+        <a asp-controller="LoreCreator" asp-action="Index">LoreCreator MEAW!!!</a>
+    </header>
     <div>
         @if(User.Identity.IsAuthenticated)
         {
@@ -38,10 +44,27 @@
             <a asp-controller="Auth" asp-action="Registration">@LCL.Registration</a>
             <a asp-controller="Auth" asp-action="Login">@LCL.Login</a>
         }
+        @{
+            string language = Supporter.GetCurrentUserLanguage();
+            SelectList languageList = new(Supporter.Languages);
+            int i = 0;
+            foreach(var lang in languageList)
+            {
+                lang.Value = i.ToString();
+                i++;
+                if (lang.Text == language) lang.Selected = true;
+                lang.Text = Supporter.GetNameOfLanguage(lang.Text);
+            }
+            
+        }
+        <form method="post" asp-controller="Auth" asp-action="SetLang">
+            <input id="setLangSubmit" type="submit" style="display: none;" />
+            @Html.DropDownList("language", languageList)
+        </form>
     </div>
     @RenderBody()
     <div>
-        БОЛЬШЕ МЯЯЯУУУ
+    @LCL.Meow
     </div>
 </body>
 </html>

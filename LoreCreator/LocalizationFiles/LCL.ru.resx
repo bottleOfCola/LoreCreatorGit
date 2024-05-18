@@ -135,6 +135,9 @@
   <data name="Login" xml:space="preserve">
     <value>Войти</value>
   </data>
+  <data name="Meow" xml:space="preserve">
+    <value>БОЛЬШЕ МЯЯЯУУУ</value>
+  </data>
   <data name="Profile" xml:space="preserve">
     <value>Профиль</value>
   </data>
