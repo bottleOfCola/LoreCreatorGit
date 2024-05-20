@@ -19,6 +19,7 @@
         <a asp-controller="LoreCreator" asp-action="Index">LoreCreator MEAW!!!</a>
     </header>
     <div>
+        <a asp-controller="LoreCreator" asp-action="FunFact">@LCL.FunFact</a>
         @if(User.Identity.IsAuthenticated)
         {
             var permissions = User.Claims.FirstOrDefault(x => x.Type == "permissions").Value.Split(' ').ToList().ConvertAll(x => (PermissionTypes)int.Parse(x));

@@ -6,6 +6,9 @@ using LoreCreator.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedForLoreCreator.Models;
+using System.Runtime.InteropServices;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 
 namespace LoreCreator.Controllers;
 
@@ -32,6 +35,17 @@ public class LoreCreatorController : Controller
         _connectionTypeRepository = connectionTypeRepository;
         _chatServiceWorker = chatServiceWorker;
         _webHostEnvironment = webHostEnvironment;
+    }
+    public IActionResult FunFact()
+    {
+        using (HttpClient client = new())
+        {
+            var jsonString = client.GetAsync("https://api.chucknorris.io/jokes/random").Result.Content.ReadAsStringAsync().Result;
+            var json = JsonNode.Parse(jsonString);
+            ViewBag.Result = json["value"].GetValue<string>();
+
+        }
+        return View();
     }
 
     public IActionResult Index()

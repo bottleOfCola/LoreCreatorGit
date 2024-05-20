@@ -106,6 +106,15 @@ namespace LoreCreator.LocalizationFiles {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Fun fact.
+        /// </summary>
+        public static string FunFact {
+            get {
+                return ResourceManager.GetString("FunFact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Login.
         /// </summary>
         public static string Login {

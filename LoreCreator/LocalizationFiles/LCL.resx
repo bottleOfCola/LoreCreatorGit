@@ -132,6 +132,9 @@
   <data name="AddTagOrConnType" xml:space="preserve">
     <value>Add Tag or Connection Type</value>
   </data>
+  <data name="FunFact" xml:space="preserve">
+    <value>Fun fact</value>
+  </data>
   <data name="Login" xml:space="preserve">
     <value>Login</value>
   </data>

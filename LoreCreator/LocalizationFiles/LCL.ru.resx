@@ -132,6 +132,9 @@
   <data name="AddTagOrConnType" xml:space="preserve">
     <value>Добавить Тэг или Тип Связи</value>
   </data>
+  <data name="FunFact" xml:space="preserve">
+    <value>Смешной факт</value>
+  </data>
   <data name="Login" xml:space="preserve">
     <value>Войти</value>
   </data>
